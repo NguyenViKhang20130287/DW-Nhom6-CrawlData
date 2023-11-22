@@ -8,6 +8,15 @@ public class KQXS {
     private String number;
     private String date;
 
+    public KQXS() {
+    }
+
+    public KQXS(String province, String award, String number) {
+        this.province = province;
+        this.award = award;
+        this.number = number;
+    }
+
     public KQXS(String region, String province, String award, String number, String date) {
         this.region = region;
         this.province = province;
@@ -58,12 +67,11 @@ public class KQXS {
 
     @Override
     public String toString() {
-        return "KQXS{" +
-                "region='" + region + '\'' +
-                ", province='" + province + '\'' +
-                ", award='" + award + '\'' +
-                ", number='" + number + '\'' +
-                ", date='" + date + '\'' +
-                '}';
+        return "Region: " + region + ", " +
+                "Province: " + province + ", " +
+                "Award: " + award + ", " +
+                "Number: " + number + ", " +
+                "Date: " + date + "\n";
+
     }
 }
