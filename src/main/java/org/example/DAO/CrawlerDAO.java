@@ -1,10 +1,12 @@
-package org.example;
+package org.example.DAO;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.example.DBConnection;
+import org.example.entity.KQXS;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,7 +24,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DAO {
+public class CrawlerDAO {
 
     String[] regions = {"xsmb", "xsmt", "xsmn"};
 
@@ -68,7 +70,7 @@ public class DAO {
         }
     }
 
-    public List<KQXS> resultMB() {
+    public List<KQXS> resultMB(String sourcePath) {
         List<KQXS> result = new ArrayList<>();
         String region = "Miền Bắc";
         try {
@@ -139,7 +141,7 @@ public class DAO {
     }
 
 
-    public List<KQXS> resultMT() {
+    public List<KQXS> resultMT(String sourcePath) {
         List<KQXS> test = new ArrayList<>();
         try {
             Document document = Jsoup.connect("https://xskt.com.vn/xsmt").get();
@@ -248,7 +250,7 @@ public class DAO {
         return test;
     }
 
-    public List<KQXS> resultMN() {
+    public List<KQXS> resultMN(String sourcePath) {
         List<KQXS> test = new ArrayList<>();
         try {
             Document document = Jsoup.connect("https://xskt.com.vn/xsmn").get();
@@ -397,24 +399,24 @@ public class DAO {
         return test;
     }
 
-    public List<KQXS> getData() {
+    public List<KQXS> getData(String sourcePath) {
         List<KQXS> result = new ArrayList<>();
 
         try {
             for (String region : regions) {
                 if (region.equals("xsmb")) {
-                    List<KQXS> mb = resultMB();
+                    List<KQXS> mb = resultMB(sourcePath+region);
                     for (KQXS k : mb) {
                         result.add(k);
                     }
 
                 } else if (region.equals("xsmn")) {
-                    List<KQXS> mn = resultMN();
+                    List<KQXS> mn = resultMN(sourcePath+region);
                     for (KQXS k : mn) {
                         result.add(k);
                     }
                 } else if (region.equals("xsmt")) {
-                    List<KQXS> mt = resultMT();
+                    List<KQXS> mt = resultMT(sourcePath+region);
                     for (KQXS k : mt) {
                         result.add(k);
                     }
@@ -426,16 +428,17 @@ public class DAO {
         return result;
     }
 
-    public void exportFileExcel() {
-        List<KQXS> kqxs = getData();
+    public void exportFileExcel(String location, String sourcePath, int df_id) {
+
+        List<KQXS> kqxs = getData(sourcePath);
         String[] columnsTitle = {"Region", "Province", "Award", "Number", "Date"};
-        String excelPath = "KQXS.xlsx";
 
         try {
-            File file = new File(excelPath);
+            File file = new File(location);
             if (!file.exists()) {
+                new ConfigurationDAO().insertStatusConfig(df_id, "CRAWLING");
                 Workbook workbook = new XSSFWorkbook();
-                FileOutputStream fos = new FileOutputStream(excelPath);
+                FileOutputStream fos = new FileOutputStream(location);
                 Sheet sheet = workbook.createSheet("sheet1");
 
                 // TAO TIEU DE
@@ -458,13 +461,15 @@ public class DAO {
                 // EXPORT
                 workbook.write(fos);
                 System.out.println("Success");
+                new ConfigurationDAO().insertStatusConfig(df_id, "CRAWLED");
             } else if(file.exists()) {
                 System.out.println(file + " is exist!");
                 file.delete();
                 System.out.println("Delete file success");
+                new ConfigurationDAO().insertStatusConfig(df_id, "CRAWLING");
 
                 Workbook workbook = new XSSFWorkbook();
-                FileOutputStream fos = new FileOutputStream(excelPath);
+                FileOutputStream fos = new FileOutputStream(location);
 
                 Sheet sheet = workbook.createSheet("sheet1");
 
@@ -488,7 +493,7 @@ public class DAO {
                 // EXPORT
                 workbook.write(fos);
                 System.out.println("Success");
-
+                new ConfigurationDAO().insertStatusConfig(df_id, "CRAWLED");
             }
 
 
@@ -498,8 +503,10 @@ public class DAO {
     }
 
     //
-    public void insertDataToStaging(){
-        exportFileExcel();
+    public void insertDataToStaging(String sourcePath, String location, int df_id){
+        exportFileExcel(location, sourcePath, df_id);
+
+
         String path = "KQXS.xlsx";
         try {
             Connection connection = new DBConnection().getConnection("staging");
@@ -517,7 +524,14 @@ public class DAO {
                     "STR_TO_DATE(?, '%d-%m-%Y')," +
                     "?, ?, ?, ?)";
 
+            //
+            String queryTruncate = "truncate table ketquaxoso_staging";
             PreparedStatement ps = connection.prepareStatement(query);
+            PreparedStatement psTruncate = connection.prepareStatement(queryTruncate);
+            psTruncate.executeUpdate();
+            new ConfigurationDAO().insertStatusConfig(df_id, "EXTRACTING");
+
+            //
             for (int i = 1; i <= sheet.getLastRowNum(); i++){
                 Row row = sheet.getRow(i);
                 if (row!=null){
@@ -540,8 +554,15 @@ public class DAO {
             }
 
             int[] rowQuantity = ps.executeBatch();
+
             System.out.println("Row quantity: " + rowQuantity.length);
             System.out.println("Insert success");
+
+            ps.close();
+            psTruncate.close();
+            connection.close();
+
+            new ConfigurationDAO().insertStatusConfig(df_id, "EXTRACTED");
         }catch (Exception e){
             e.printStackTrace();
         }
