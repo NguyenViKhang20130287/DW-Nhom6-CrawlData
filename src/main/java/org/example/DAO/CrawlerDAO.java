@@ -10,6 +10,7 @@ import org.example.entity.KQXS;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,8 +27,17 @@ import java.util.regex.Pattern;
 
 public class CrawlerDAO {
 
-    String[] regions = {"xsmb", "xsmt", "xsmn"};
-
+    public String getNameRegion(String pathName){
+        String region = "";
+        if(pathName.equals("xsmn")){
+            region = "Miền Nam";
+        } else if(pathName.equals("xsmt")){
+            region = "Miền Trung";
+        } else if(pathName.equals("xsmb")){
+            region = "Miền Bắc";
+        }
+        return region;
+    }
     public String extractStringInParentheses(String input) {
         int startIndex = input.indexOf("(");
         int endIndex = input.indexOf(")");
@@ -74,7 +84,7 @@ public class CrawlerDAO {
         List<KQXS> result = new ArrayList<>();
         String region = "Miền Bắc";
         try {
-            Document document = Jsoup.connect("https://xskt.com.vn/xsmb").get();
+            Document document = Jsoup.connect(sourcePath).get();
             Element el = document.getElementsByClass("result").get(0);
             //province
             String provinceHtml = el.select("tr").get(0).select("th").get(0).select("b").get(0).text();
@@ -141,266 +151,41 @@ public class CrawlerDAO {
     }
 
 
-    public List<KQXS> resultMT(String sourcePath) {
-        List<KQXS> test = new ArrayList<>();
-        try {
-            Document document = Jsoup.connect("https://xskt.com.vn/xsmt").get();
-            Element el = document.getElementsByClass("box-ketqua").get(0);
+    public List<KQXS> resultMTMN(String sourcePath) {
+        List<KQXS> result = new ArrayList<>();
+        String[] regions = {"xsmt", "xsmn"};
+        for (String region : regions) {
+            try {
+                Document document = Jsoup.connect(sourcePath + region).get();
+                Element el = document.getElementsByClass("box-ketqua").get(0);
+                Elements els = el.select("tr").get(0).select("th");
+                String dateHtml = el.select("h2").get(0).select("a").get(1).attr("href");
+                for (int i = 1; i < els.size(); i++) {
+                    for (int j = 1; j < 10; j++) {
 
-            String province1 = el.select("tr").get(0).select("th").get(1).text();
-            String province2 = el.select("tr").get(0).select("th").get(2).text();
-            String[] provinces = {province1, province2};
 
-            // date
-            String dateHtml = el.select("h2").get(0).select("a").get(1).attr("href");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("'/xsmt'/'ngay'-dd-MM-yyyy");
-            LocalDate localDate = LocalDate.parse(dateHtml, formatter);
-            String date = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear();
+                        // date
+                        String date = extractDate(dateHtml);
 
-            for (int i = 0; i < provinces.length; i++) {
-                String DB_name = el.select("tr").get(9).select("td").get(0).attr("title");
-                String G1_name = el.select("tr").get(8).select("td").get(0).attr("title");
-                String G2_name = el.select("tr").get(7).select("td").get(0).attr("title");
-                String G3_name = el.select("tr").get(6).select("td").get(0).attr("title");
-                String G4_name = el.select("tr").get(5).select("td").get(0).attr("title");
-                String G5_name = el.select("tr").get(4).select("td").get(0).attr("title");
-                String G6_name = el.select("tr").get(3).select("td").get(0).attr("title");
-                String G7_name = el.select("tr").get(2).select("td").get(0).attr("title");
-                String G8_name = el.select("tr").get(1).select("td").get(0).attr("title");
-                if (i == 0) {
-                    String DB_number1 = el.select("tr").get(9).select("td").get(1).text();
-                    test.add(new KQXS("Miền Trung", provinces[0], DB_name, DB_number1, date));
-
-                    String G1_number = el.select("tr").get(8).select("td").get(1).text();
-                    test.add(new KQXS("Miền Trung", provinces[0], G1_name, G1_number, date));
-
-                    String G2_number = el.select("tr").get(7).select("td").get(1).text();
-                    test.add(new KQXS("Miền Trung", provinces[0], G2_name, G2_number, date));
-
-                    String G3_number = el.select("tr").get(6).select("td").get(1).text();
-                    String[] G3_numbers = extractNumbers(G3_number);
-                    for (String g : G3_numbers) {
-                        test.add(new KQXS("Miền Trung", provinces[0], G3_name, g, date));
+                        String province = els.get(i).text();
+                        String awardNames = el.select("tr").get(j).select("td").get(0).attr("title");
+                        String numbers = el.select("tr").get(j).select("td").get(1).text();
+                        String[] extractNumbers = extractNumbers(numbers);
+                        for(String number : extractNumbers){
+                            result.add(new KQXS(getNameRegion(region), province, awardNames, number, date));
+                        }
                     }
-
-                    String G4_number = el.select("tr").get(5).select("td").get(1).text();
-                    String[] G4_numbers = extractNumbers(G4_number);
-                    for (String g : G4_numbers) {
-                        test.add(new KQXS("Miền Trung", provinces[0], G4_name, g, date));
-                    }
-
-                    String G5_number = el.select("tr").get(4).select("td").get(1).text();
-                    test.add(new KQXS("Miền Trung", provinces[0], G5_name, G5_number, date));
-
-                    String G6_number = el.select("tr").get(3).select("td").get(1).text();
-                    String[] G6_numbers = extractNumbers(G6_number);
-                    for (String g : G6_numbers) {
-                        test.add(new KQXS("Miền Trung", provinces[0], G6_name, g, date));
-                    }
-
-                    String G7_number = el.select("tr").get(2).select("td").get(1).text();
-                    test.add(new KQXS("Miền Trung", provinces[0], G7_name, G7_number, date));
-
-                    String G8_number = el.select("tr").get(1).select("td").get(1).text();
-                    test.add(new KQXS("Miền Trung", provinces[0], G8_name, G8_number, date));
-
-                } else if (i == 1) {
-                    String DB_number2 = el.select("tr").get(9).select("td").get(2).text();
-                    test.add(new KQXS("Miền Trung", provinces[1], DB_name, DB_number2, date));
-
-                    String G1_number = el.select("tr").get(8).select("td").get(2).text();
-                    test.add(new KQXS("Miền Trung", provinces[1], G1_name, G1_number, date));
-
-                    String G2_number = el.select("tr").get(7).select("td").get(2).text();
-                    test.add(new KQXS("Miền Trung", provinces[1], G2_name, G2_number, date));
-
-                    String G3_number = el.select("tr").get(6).select("td").get(2).text();
-                    String[] G3_numbers = extractNumbers(G3_number);
-                    for (String g : G3_numbers) {
-                        test.add(new KQXS("Miền Trung", provinces[1], G3_name, g, date));
-                    }
-
-                    String G4_number = el.select("tr").get(5).select("td").get(2).text();
-                    String[] G4_numbers = extractNumbers(G4_number);
-                    for (String g : G4_numbers) {
-                        test.add(new KQXS("Miền Trung", provinces[1], G4_name, g, date));
-                    }
-
-                    String G5_number = el.select("tr").get(4).select("td").get(2).text();
-                    test.add(new KQXS("Miền Trung", provinces[1], G5_name, G5_number, date));
-
-                    String G6_number = el.select("tr").get(3).select("td").get(2).text();
-                    String[] G6_numbers = extractNumbers(G6_number);
-                    for (String g : G6_numbers) {
-                        test.add(new KQXS("Miền Trung", provinces[1], G6_name, g, date));
-                    }
-
-                    String G7_number = el.select("tr").get(2).select("td").get(2).text();
-                    test.add(new KQXS("Miền Trung", provinces[1], G7_name, G7_number, date));
-
-                    String G8_number = el.select("tr").get(1).select("td").get(2).text();
-                    test.add(new KQXS("Miền Trung", provinces[1], G8_name, G8_number, date));
-
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return test;
-    }
-
-    public List<KQXS> resultMN(String sourcePath) {
-        List<KQXS> test = new ArrayList<>();
-        try {
-            Document document = Jsoup.connect("https://xskt.com.vn/xsmn").get();
-            Element el = document.getElementsByClass("box-ketqua").get(0);
-
-            String province1 = el.select("tr").get(0).select("th").get(1).text();
-            String province2 = el.select("tr").get(0).select("th").get(2).text();
-            String province3 = el.select("tr").get(0).select("th").get(3).text();
-            String[] provinces = {province1, province2, province3};
-
-            // region
-            String region = "Miền Nam";
-
-            // date
-            String dateHtml = el.select("h2").get(0).select("a").get(1).attr("href");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("'/xsmn'/'ngay'-dd-MM-yyyy");
-            LocalDate localDate = LocalDate.parse(dateHtml, formatter);
-            String date = localDate.getDayOfMonth() + "-" + localDate.getMonthValue() + "-" + localDate.getYear();
-
-            for (int i = 0; i < provinces.length; i++) {
-                String DB_name = el.select("tr").get(9).select("td").get(0).attr("title");
-                String G1_name = el.select("tr").get(8).select("td").get(0).attr("title");
-                String G2_name = el.select("tr").get(7).select("td").get(0).attr("title");
-                String G3_name = el.select("tr").get(6).select("td").get(0).attr("title");
-                String G4_name = el.select("tr").get(5).select("td").get(0).attr("title");
-                String G5_name = el.select("tr").get(4).select("td").get(0).attr("title");
-                String G6_name = el.select("tr").get(3).select("td").get(0).attr("title");
-                String G7_name = el.select("tr").get(2).select("td").get(0).attr("title");
-                String G8_name = el.select("tr").get(1).select("td").get(0).attr("title");
-                if (i == 0) {
-                    String DB_number1 = el.select("tr").get(9).select("td").get(1).text();
-                    test.add(new KQXS(region, provinces[0], DB_name, DB_number1, date));
-
-                    String G1_number = el.select("tr").get(8).select("td").get(1).text();
-                    test.add(new KQXS(region, provinces[0], G1_name, G1_number, date));
-
-                    String G2_number = el.select("tr").get(7).select("td").get(1).text();
-                    test.add(new KQXS(region, provinces[0], G2_name, G2_number, date));
-
-                    String G3_number = el.select("tr").get(6).select("td").get(1).text();
-                    String[] G3_numbers = extractNumbers(G3_number);
-                    for (String g : G3_numbers) {
-                        test.add(new KQXS(region, provinces[0], G3_name, g, date));
-                    }
-
-                    String G4_number = el.select("tr").get(5).select("td").get(1).text();
-                    String[] G4_numbers = extractNumbers(G4_number);
-                    for (String g : G4_numbers) {
-                        test.add(new KQXS(region, provinces[0], G4_name, g, date));
-                    }
-
-                    String G5_number = el.select("tr").get(4).select("td").get(1).text();
-                    test.add(new KQXS(region, provinces[0], G5_name, G5_number, date));
-
-                    String G6_number = el.select("tr").get(3).select("td").get(1).text();
-                    String[] G6_numbers = extractNumbers(G6_number);
-                    for (String g : G6_numbers) {
-                        test.add(new KQXS(region, provinces[0], G6_name, g, date));
-                    }
-
-                    String G7_number = el.select("tr").get(2).select("td").get(1).text();
-                    test.add(new KQXS(region, provinces[0], G7_name, G7_number, date));
-
-                    String G8_number = el.select("tr").get(1).select("td").get(1).text();
-                    test.add(new KQXS(region, provinces[0], G8_name, G8_number, date));
-
-                } else if (i == 1) {
-                    String DB_number2 = el.select("tr").get(9).select("td").get(2).text();
-                    test.add(new KQXS(region, provinces[1], DB_name, DB_number2, date));
-
-                    String G1_number = el.select("tr").get(8).select("td").get(2).text();
-                    test.add(new KQXS(region, provinces[1], G1_name, G1_number, date));
-
-                    String G2_number = el.select("tr").get(7).select("td").get(2).text();
-                    test.add(new KQXS(region, provinces[1], G2_name, G2_number, date));
-
-                    String G3_number = el.select("tr").get(6).select("td").get(2).text();
-                    String[] G3_numbers = extractNumbers(G3_number);
-                    for (String g : G3_numbers) {
-                        test.add(new KQXS(region, provinces[1], G3_name, g, date));
-                    }
-
-                    String G4_number = el.select("tr").get(5).select("td").get(2).text();
-                    String[] G4_numbers = extractNumbers(G4_number);
-                    for (String g : G4_numbers) {
-                        test.add(new KQXS(region, provinces[1], G4_name, g, date));
-                    }
-
-                    String G5_number = el.select("tr").get(4).select("td").get(2).text();
-                    test.add(new KQXS(region, provinces[1], G5_name, G5_number, date));
-
-                    String G6_number = el.select("tr").get(3).select("td").get(2).text();
-                    String[] G6_numbers = extractNumbers(G6_number);
-                    for (String g : G6_numbers) {
-                        test.add(new KQXS(region, provinces[1], G6_name, g, date));
-                    }
-
-                    String G7_number = el.select("tr").get(2).select("td").get(2).text();
-                    test.add(new KQXS(region, provinces[1], G7_name, G7_number, date));
-
-                    String G8_number = el.select("tr").get(1).select("td").get(2).text();
-                    test.add(new KQXS(region, provinces[1], G8_name, G8_number, date));
-
-                } else if (i == 2) {
-                    String DB_number2 = el.select("tr").get(9).select("td").get(3).text();
-                    test.add(new KQXS(region, provinces[2], DB_name, DB_number2, date));
-
-                    String G1_number = el.select("tr").get(8).select("td").get(3).text();
-                    test.add(new KQXS(region, provinces[2], G1_name, G1_number, date));
-
-                    String G2_number = el.select("tr").get(7).select("td").get(3).text();
-                    test.add(new KQXS(region, provinces[2], G2_name, G2_number, date));
-
-                    String G3_number = el.select("tr").get(6).select("td").get(3).text();
-                    String[] G3_numbers = extractNumbers(G3_number);
-                    for (String g : G3_numbers) {
-                        test.add(new KQXS(region, provinces[2], G3_name, g, date));
-                    }
-
-                    String G4_number = el.select("tr").get(5).select("td").get(3).text();
-                    String[] G4_numbers = extractNumbers(G4_number);
-                    for (String g : G4_numbers) {
-                        test.add(new KQXS(region, provinces[2], G4_name, g, date));
-                    }
-
-                    String G5_number = el.select("tr").get(4).select("td").get(3).text();
-                    test.add(new KQXS(region, provinces[2], G5_name, G5_number, date));
-
-                    String G6_number = el.select("tr").get(3).select("td").get(3).text();
-                    String[] G6_numbers = extractNumbers(G6_number);
-                    for (String g : G6_numbers) {
-                        test.add(new KQXS(region, provinces[2], G6_name, g, date));
-                    }
-
-                    String G7_number = el.select("tr").get(2).select("td").get(3).text();
-                    test.add(new KQXS(region, provinces[2], G7_name, G7_number, date));
-
-                    String G8_number = el.select("tr").get(1).select("td").get(3).text();
-                    test.add(new KQXS(region, provinces[2], G8_name, G8_number, date));
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return test;
+        return result;
     }
 
     public List<KQXS> getData(String sourcePath) {
         List<KQXS> result = new ArrayList<>();
+        String[] regions = {"xsmb", "xsmt", "xsmn"};
 
         try {
             for (String region : regions) {
@@ -410,16 +195,11 @@ public class CrawlerDAO {
                         result.add(k);
                     }
 
-                } else if (region.equals("xsmn")) {
-                    List<KQXS> mn = resultMN(sourcePath+region);
-                    for (KQXS k : mn) {
-                        result.add(k);
-                    }
-                } else if (region.equals("xsmt")) {
-                    List<KQXS> mt = resultMT(sourcePath+region);
-                    for (KQXS k : mt) {
-                        result.add(k);
-                    }
+                } else {
+                        List<KQXS> mtmn = resultMTMN(sourcePath);
+                        for (KQXS k : mtmn) {
+                            result.add(k);
+                        }
                 }
             }
         } catch (Exception e) {
