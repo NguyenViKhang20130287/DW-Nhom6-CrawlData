@@ -10,18 +10,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a56fb26f-0e43-498b-bd71-4ea6ab586327" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/CrawlerData_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/procedureCode/InsertIntoKetQuaXoSoMart.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/procedureCode/ThemDuLieuGiaiDim.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/procedureCode/ThemDuLieuKetQuaXoSoFact.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/procedureCode/ThemDuLieuMienDim.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/procedureCode/ThemDuLieuTinhDim.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/connection/DBConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/EmailSenderDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/InsertDataDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/RunProcedureDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/EmailConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/PropertiesReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/control.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/CrawlerData_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/CrawlerData_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KQXS.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/KQXS.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DAO/CrawlerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DAO/CrawlerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DAO/TransformDataDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/DAO/ProcedureDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/CrawlerData_jar/CrawlerData.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DAO/ConfigurationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/ConfigurationDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DAO/CrawlerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/CrawlerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DAO/ProcedureDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DBConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/DataFileConfigs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/DataFileConfigs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/KQXS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/KQXS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +62,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/Warehouse/CrawlerData/src/main/procedureCode",
+    "last_opened_file_path": "E:/Warehouse/CrawlerData",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -62,7 +71,7 @@
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propCompiler",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -72,8 +81,8 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.Main" />
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.datawarehouse.Main" />
       <module name="CrawlerData" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -107,7 +116,14 @@
       <workItem from="1701091618668" duration="1598000" />
       <workItem from="1701355087417" duration="290000" />
       <workItem from="1701397474990" duration="6973000" />
-      <workItem from="1701433913551" duration="1573000" />
+      <workItem from="1701433913551" duration="5078000" />
+      <workItem from="1701453361195" duration="31000" />
+      <workItem from="1701453416364" duration="10852000" />
+      <workItem from="1701464423540" duration="375000" />
+      <workItem from="1701465887044" duration="176000" />
+      <workItem from="1701518616306" duration="83000" />
+      <workItem from="1701539673421" duration="179000" />
+      <workItem from="1701540835142" duration="24000" />
     </task>
     <servers />
   </component>
