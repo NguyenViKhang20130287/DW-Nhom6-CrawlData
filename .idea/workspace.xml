@@ -10,27 +10,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a56fb26f-0e43-498b-bd71-4ea6ab586327" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/connection/DBConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/EmailSenderDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/InsertDataDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/RunProcedureDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/EmailConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/PropertiesReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/control.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SqlQuery/insertDataToDataMart.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SqlQuery/insertDataToFact.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SqlQuery/insertDataToGiaiDim.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SqlQuery/insertDataToMienDim.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SqlQuery/insertDataToTinhDim.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/control.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/DataFiles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/CrawlerData_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/CrawlerData_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KQXS.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/KQXS.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KQXS.xlsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/CrawlerData_jar/CrawlerData.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DAO/ConfigurationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/ConfigurationDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DAO/CrawlerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/CrawlerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DAO/ProcedureDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/DBConnection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/DataFileConfigs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/DataFileConfigs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/KQXS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/KQXS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/connection/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/connection/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/ConfigurationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/ConfigurationDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/CrawlerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/CrawlerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/InsertDataDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/InsertDataDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/RunProcedureDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/RunProcedureDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/DataFileConfigs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/DataFileConfigs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/PropertiesReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/PropertiesReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/procedureCode/InsertIntoKetQuaXoSoMart.sql" beforeDir="false" afterPath="$PROJECT_DIR$/SqlQuery/insertDataToAggerate.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/procedureCode/ThemDuLieuGiaiDim.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/procedureCode/ThemDuLieuKetQuaXoSoFact.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/procedureCode/ThemDuLieuMienDim.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/procedureCode/ThemDuLieuTinhDim.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/control.properties" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +67,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/Warehouse/CrawlerData",
+    "last_opened_file_path": "E:/Warehouse/CrawlerData/SqlQuery",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -77,11 +82,15 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Warehouse\CrawlerData\SqlQuery" />
       <recent name="E:\Warehouse\CrawlerData\src\main\procedureCode" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Warehouse\CrawlerData" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.datawarehouse.Main" />
       <module name="CrawlerData" />
       <method v="2">
@@ -124,6 +133,16 @@
       <workItem from="1701518616306" duration="83000" />
       <workItem from="1701539673421" duration="179000" />
       <workItem from="1701540835142" duration="24000" />
+      <workItem from="1701541459183" duration="95000" />
+      <workItem from="1701605162668" duration="174000" />
+      <workItem from="1701609804846" duration="21174000" />
+      <workItem from="1701663640814" duration="5143000" />
+      <workItem from="1701744160712" duration="5764000" />
+      <workItem from="1701783489677" duration="223000" />
+      <workItem from="1701790155290" duration="1217000" />
+      <workItem from="1701791603953" duration="48000" />
+      <workItem from="1701794446547" duration="3652000" />
+      <workItem from="1701801347828" duration="19695000" />
     </task>
     <servers />
   </component>

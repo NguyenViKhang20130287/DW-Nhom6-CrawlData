@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class PropertiesReader {
     Properties properties;
-    String path = "src/main/resources/control.properties";
+    String path = "control.properties";
 
     public PropertiesReader() {
         properties = new Properties();

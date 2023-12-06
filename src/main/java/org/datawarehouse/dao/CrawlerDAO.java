@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.datawarehouse.entity.KQXS;
+import org.datawarehouse.ultils.PropertiesReader;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,7 +14,6 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -21,17 +21,18 @@ import java.util.regex.Pattern;
 
 public class CrawlerDAO {
 
-    public String getNameRegion(String pathName){
+    public String getNameRegion(String pathName) {
         String region = "";
-        if(pathName.equals("xsmn")){
+        if (pathName.equals("xsmn")) {
             region = "Miền Nam";
-        } else if(pathName.equals("xsmt")){
+        } else if (pathName.equals("xsmt")) {
             region = "Miền Trung";
-        } else if(pathName.equals("xsmb")){
+        } else if (pathName.equals("xsmb")) {
             region = "Miền Bắc";
         }
         return region;
     }
+
     public String extractStringInParentheses(String input) {
         int startIndex = input.indexOf("(");
         int endIndex = input.indexOf(")");
@@ -74,145 +75,134 @@ public class CrawlerDAO {
         }
     }
 
-    public List<KQXS> resultMB(String sourcePath) {
+    public List<KQXS> resultMB(String sourcePath, String dateInput) throws Exception {
         List<KQXS> result = new ArrayList<>();
         String region = "Miền Bắc";
-        try {
+
+        String runDate = new PropertiesReader().getProperty("run.date");
+        if (runDate.equals("on")) {
+            Document document = Jsoup.connect(sourcePath + "/ngay-" + dateInput).get();
+            Element el = document.getElementsByClass("result").get(0);
+            Elements els = el.select("tbody").get(0).select("tr");
+            String province = new CrawlerDAO().extractStringInParentheses(els.get(0).text());
+            String dateHtml = el.select("tr").get(0).select("th").get(0).select("i").get(0).attr("title");
+            String date = new CrawlerDAO().extractDate(dateHtml);
+            System.out.println(date);
+            System.out.println(province);
+            for (int i = 1; i < els.size() - 1; i++) {
+                String award = els.get(i).select("td").get(0).attr("title");
+
+                if (i != 5 && i != 8) {
+                    String numberHtml = els.get(i).select("td").get(1).text();
+                    String[] numbers = new CrawlerDAO().extractNumbers(numberHtml);
+                    for (String number : numbers) {
+                        result.add(new KQXS(region, province, award, number, date));
+                    }
+                }
+            }
+        } else if (runDate.equals("off")) {
             Document document = Jsoup.connect(sourcePath).get();
             Element el = document.getElementsByClass("result").get(0);
-            //province
-            String provinceHtml = el.select("tr").get(0).select("th").get(0).select("b").get(0).text();
-            String province = extractStringInParentheses(provinceHtml);
-
-            // date
+            Elements els = el.select("tbody").get(0).select("tr");
+            String province = new CrawlerDAO().extractStringInParentheses(els.get(0).text());
             String dateHtml = el.select("tr").get(0).select("th").get(0).select("i").get(0).attr("title");
-            String date = extractDate(dateHtml);
+            String date = new CrawlerDAO().extractDate(dateHtml);
+            System.out.println(date);
+            System.out.println(province);
+            for (int i = 1; i < els.size() - 1; i++) {
+                String award = els.get(i).select("td").get(0).attr("title");
 
-            String DB_name = el.select("tr").get(1).select("td").get(0).attr("title");
-            String DB_number = el.select("tr").get(1).select("td").get(1).text();
-            result.add(new KQXS(region, province, DB_name, DB_number, date));
-
-            String G1_name = el.select("tr").get(2).select("td").get(0).attr("title");
-            String G1_number = el.select("tr").get(2).select("td").get(1).text();
-            result.add(new KQXS(region, province, G1_name, G1_number, date));
-
-            String G2_name = el.select("tr").get(3).select("td").get(0).attr("title");
-            String G2_number = el.select("tr").get(3).select("td").get(1).text();
-            String[] G2_numbers = extractNumbers(G2_number);
-            for (String g : G2_numbers) {
-                result.add(new KQXS(region, province, G2_name, g, date));
+                if (i != 5 && i != 8) {
+                    String numberHtml = els.get(i).select("td").get(1).text();
+                    String[] numbers = new CrawlerDAO().extractNumbers(numberHtml);
+                    for (String number : numbers) {
+                        result.add(new KQXS(region, province, award, number, date));
+                    }
+                }
             }
-
-            String G3_name = el.select("tr").get(4).select("td").get(0).attr("title");
-            String G3_number = el.select("tr").get(4).select("td").get(1).text();
-            String[] G3_numbers = extractNumbers(G3_number);
-            for (String g : G3_numbers) {
-                result.add(new KQXS(region, province, G3_name, g, date));
-            }
-
-            String G4_name = el.select("tr").get(6).select("td").get(0).attr("title");
-            String G4_number = el.select("tr").get(6).select("td").get(1).text();
-            String[] G4_numbers = extractNumbers(G4_number);
-            for (String g : G4_numbers) {
-                result.add(new KQXS(region, province, G4_name, g, date));
-            }
-
-            String G5_name = el.select("tr").get(7).select("td").get(0).attr("title");
-            String G5_number = el.select("tr").get(7).select("td").get(1).text();
-            String[] G5_numbers = extractNumbers(G5_number);
-            for (String g : G5_numbers) {
-                result.add(new KQXS(region, province, G5_name, g, date));
-            }
-
-            String G6_name = el.select("tr").get(9).select("td").get(0).attr("title");
-            String G6_number = el.select("tr").get(9).select("td").get(1).text();
-            String[] G6_numbers = extractNumbers(G6_number);
-            for (String g : G6_numbers) {
-                result.add(new KQXS(region, province, G6_name, g, date));
-            }
-
-            String G7_name = el.select("tr").get(10).select("td").get(0).attr("title");
-            String G7_number = el.select("tr").get(10).select("td").get(1).text();
-            String[] G7_numbers = extractNumbers(G7_number);
-            for (String g : G7_numbers) {
-                result.add(new KQXS(region, province, G7_name, g, date));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+
         return result;
     }
 
-
-    public List<KQXS> resultMTMN(String sourcePath) {
+    public List<KQXS> resultMTMN(String sourcePath, String dateInput) throws Exception {
         List<KQXS> result = new ArrayList<>();
         String[] regions = {"xsmt", "xsmn"};
-        for (String region : regions) {
-            try {
-                Document document = Jsoup.connect(sourcePath + region).get();
+        String runDate = new PropertiesReader().getProperty("run.date");
+        if (runDate.equals("on")) {
+            for (String region : regions) {
+                Document document = Jsoup.connect(sourcePath + region + "/ngay-" + dateInput).get();
                 Element el = document.getElementsByClass("box-ketqua").get(0);
                 Elements els = el.select("tr").get(0).select("th");
-                String dateHtml = el.select("h2").get(0).select("a").get(1).attr("href");
                 for (int i = 1; i < els.size(); i++) {
                     for (int j = 1; j < 10; j++) {
-
-
-                        // date
-                        String date = extractDate(dateHtml);
-
                         String province = els.get(i).text();
                         String awardNames = el.select("tr").get(j).select("td").get(0).attr("title");
                         String numbers = el.select("tr").get(j).select("td").get(1).text();
                         String[] extractNumbers = extractNumbers(numbers);
-                        for(String number : extractNumbers){
+                        for (String number : extractNumbers) {
+                            result.add(new KQXS(getNameRegion(region), province, awardNames, number, dateInput));
+                        }
+                    }
+                }
+            }
+        } else if (runDate.equals("off")) {
+            for (String region : regions) {
+                Document document = Jsoup.connect(sourcePath + region).get();
+                Element el = document.getElementsByClass("box-ketqua").get(0);
+                Elements els = el.select("tr").get(0).select("th");
+                String dateHtml = el.select("h2").get(0).select("a").get(1).attr("href");
+                System.out.println(dateHtml);
+                for (int i = 1; i < els.size(); i++) {
+                    for (int j = 1; j < 10; j++) {
+                        // date
+                        String date = extractDate(dateHtml);
+                        String province = els.get(i).text();
+                        String awardNames = el.select("tr").get(j).select("td").get(0).attr("title");
+                        String numbers = el.select("tr").get(j).select("td").get(1).text();
+                        String[] extractNumbers = extractNumbers(numbers);
+                        for (String number : extractNumbers) {
                             result.add(new KQXS(getNameRegion(region), province, awardNames, number, date));
                         }
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
+
         return result;
     }
 
-    public List<KQXS> getData(String sourcePath) {
+    public List<KQXS> getData(String sourcePath, String date) throws Exception {
         List<KQXS> result = new ArrayList<>();
         String[] regions = {"xsmb", "xsmt", "xsmn"};
 
-        try {
-            for (String region : regions) {
-                if (region.equals("xsmb")) {
-                    List<KQXS> mb = resultMB(sourcePath+region);
-                    for (KQXS k : mb) {
-                        result.add(k);
-                    }
-
-                } else {
-                        List<KQXS> mtmn = resultMTMN(sourcePath);
-                        for (KQXS k : mtmn) {
-                            result.add(k);
-                        }
+        for (String region : regions) {
+            if (region.equals("xsmb")) {
+                List<KQXS> mb = resultMB(sourcePath + region, date);
+                for (KQXS k : mb) {
+                    result.add(k);
+                }
+            } else {
+                List<KQXS> mtmn = resultMTMN(sourcePath, date);
+                for (KQXS k : mtmn) {
+                    result.add(k);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return result;
     }
 
-    public void exportFileExcel(int configId, String location, String sourcePath) {
-
-        List<KQXS> kqxs = getData(sourcePath);
-        String[] columnsTitle = {"Region", "Province", "Award", "Number", "Date"};
+    public void exportFileExcel(int configId, String location, String sourcePath, String fileName, String date) {
 
         try {
-            File file = new File(location);
+            List<KQXS> kqxs = getData(sourcePath, date);
+            String[] columnsTitle = {"Region", "Province", "Award", "Number", "Date"};
+            File file = new File(location + fileName);
             if (!file.exists()) {
                 new ConfigurationDAO().insertStatusConfig(configId, "CRAWLING");
                 Workbook workbook = new XSSFWorkbook();
-                FileOutputStream fos = new FileOutputStream(location);
+                FileOutputStream fos = new FileOutputStream(location + fileName);
                 Sheet sheet = workbook.createSheet("sheet1");
 
                 // TAO TIEU DE
@@ -236,14 +226,14 @@ public class CrawlerDAO {
                 workbook.write(fos);
                 System.out.println("Success");
                 new ConfigurationDAO().insertStatusConfig(configId, "CRAWLED");
-            } else if(file.exists()) {
+            } else if (file.exists()) {
                 System.out.println(file + " is exist!");
                 file.delete();
                 System.out.println("Delete file success");
                 new ConfigurationDAO().insertStatusConfig(configId, "CRAWLING");
 
                 Workbook workbook = new XSSFWorkbook();
-                FileOutputStream fos = new FileOutputStream(location);
+                FileOutputStream fos = new FileOutputStream(location + fileName);
 
                 Sheet sheet = workbook.createSheet("sheet1");
 
@@ -269,13 +259,11 @@ public class CrawlerDAO {
                 System.out.println("Export to file excel Success");
                 new ConfigurationDAO().insertStatusConfig(configId, "CRAWLED");
             }
-
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             new ConfigurationDAO().insertStatusConfig(configId, "ERROR");
-            new EmailSenderDAO().sendEmail(e.getMessage());
+            new EmailSenderDAO().sendEmail("ERROR IN CRAWLING STEP: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
-
 
 }

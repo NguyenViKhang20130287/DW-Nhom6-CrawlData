@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.datawarehouse.connection.DBConnection;
+import org.datawarehouse.ultils.PropertiesReader;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -19,18 +20,13 @@ public class InsertDataDAO {
     PreparedStatement ps = null;
     ResultSet rs;
 
-    public void insertDataToStaging(int configId, String USERNAME, String PASSWORD,
-                                    String location, String sourcePath) {
-        crawlerDAO.exportFileExcel(configId, location, sourcePath);
+    public void insertDataToStaging(int configId, String USERNAME, String PASSWORD, String location, String fileName) {
+        String DATABASE_NAME = new PropertiesReader().getProperty("database.name.staging");
 
-        String DATABASE_NAME = "staging";
-        String path = "KQXS.xlsx";
         try {
-            // INSERT STATUS
-            new ConfigurationDAO().insertStatusConfig(configId, "EXTRACTING");
-
             connection = dbConnection.getConnection(DATABASE_NAME, USERNAME, PASSWORD);
-            FileInputStream fis = new FileInputStream(path);
+            new ConfigurationDAO().insertStatusConfig(configId, "EXTRACTING");
+            FileInputStream fis = new FileInputStream(location+fileName);
 
             Workbook workbook = new XSSFWorkbook(fis);
             Sheet sheet = workbook.getSheetAt(0);
@@ -73,7 +69,6 @@ public class InsertDataDAO {
                 }
             }
 
-
             int[] rowQuantity = ps.executeBatch();
             System.out.println("Row quantity: " + rowQuantity.length);
 
@@ -84,10 +79,11 @@ public class InsertDataDAO {
 
             // INSERT STATUS
             new ConfigurationDAO().insertStatusConfig(configId, "EXTRACTED");
+
         } catch (Exception e) {
-            e.printStackTrace();
             new ConfigurationDAO().insertStatusConfig(configId, "ERROR");
-            new EmailSenderDAO().sendEmail(e.getMessage());
+            new EmailSenderDAO().sendEmail("ERROR IN EXTRACTING STEP: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

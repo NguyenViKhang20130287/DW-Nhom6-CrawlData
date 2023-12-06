@@ -1,6 +1,5 @@
 package org.datawarehouse.connection;
 
-import org.datawarehouse.dao.ConfigurationDAO;
 import org.datawarehouse.dao.EmailSenderDAO;
 import org.datawarehouse.ultils.PropertiesReader;
 
@@ -12,18 +11,11 @@ public class DBConnection {
 
     PropertiesReader pr = new PropertiesReader();
 
-    public Connection getConnection(String dbName, String username, String password) {
+    public Connection getConnection(String dbName, String username, String password) throws Exception {
         String dbURL = pr.getProperty("database.url") + dbName + "?useUnicode=yes&characterEncoding=UTF-8";
-        Connection conn = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(dbURL, username, password);
-            System.out.println("connect successfully!");
-        } catch (Exception ex) {
-            System.out.println("connect failure!");
-            ex.printStackTrace();
-            new EmailSenderDAO().sendEmail(ex.getMessage());
-        }
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(dbURL, username, password);
+        System.out.println("connect " + dbName + " successfully!");
         return conn;
     }
 
