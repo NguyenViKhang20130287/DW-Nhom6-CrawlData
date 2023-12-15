@@ -20,12 +20,16 @@ public class InsertDataDAO {
     PreparedStatement ps = null;
     ResultSet rs;
 
+    // 10. EXTRACT file excel vào staging
     public void insertDataToStaging(int configId, String USERNAME, String PASSWORD, String location, String fileName) {
         String DATABASE_NAME = new PropertiesReader().getProperty("database.name.staging");
 
         try {
+            // 10.1 Kết nối database staging
             connection = dbConnection.getConnection(DATABASE_NAME, USERNAME, PASSWORD);
+            // 10.2 Insert thêm dòng mới có status = EXTRACTING trong control.data_files
             new ConfigurationDAO().insertStatusConfig(configId, "EXTRACTING");
+            // 10.3 Đọc file
             FileInputStream fis = new FileInputStream(location+fileName);
 
             Workbook workbook = new XSSFWorkbook(fis);
@@ -41,6 +45,7 @@ public class InsertDataDAO {
                     "?, ?, ?, ?)";
 
             // TRUNCATE DATA IN DATABASE STAGING
+            // 10.4 Trancate table ketquaxoso_staging
             String queryTruncate = "truncate table ketquaxoso_staging";
             PreparedStatement psTruncate = connection.prepareStatement(queryTruncate);
             psTruncate.executeUpdate();
@@ -49,7 +54,7 @@ public class InsertDataDAO {
 
             ps = connection.prepareStatement(query);
 
-            //
+            // 10.5 Duyệt file
             for (int i = 1; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);
                 if (row != null) {
@@ -68,20 +73,23 @@ public class InsertDataDAO {
                     ps.addBatch();
                 }
             }
-
+            // 10.6 insert dữ liệu vào staging.ketquaxoso_staging
             int[] rowQuantity = ps.executeBatch();
             System.out.println("Row quantity: " + rowQuantity.length);
 
             // CLOSE
             ps.close();
             System.out.println("Insert data to Staging success");
+            // 26. Đóng kết nối database
             dbConnection.closeConnection(connection);
 
-            // INSERT STATUS
+            // 10.6 Insert thêm dòng mới có status = EXTRACTED trong control.data_files
             new ConfigurationDAO().insertStatusConfig(configId, "EXTRACTED");
 
         } catch (Exception e) {
+            // 10.8 Insert thêm dòng mới có status = ERROR trong control.data_files
             new ConfigurationDAO().insertStatusConfig(configId, "ERROR");
+            // 25. Gửi email báo cáo lỗi
             new EmailSenderDAO().sendEmail("ERROR IN EXTRACTING STEP: " + e.getMessage());
             throw new RuntimeException(e);
         }

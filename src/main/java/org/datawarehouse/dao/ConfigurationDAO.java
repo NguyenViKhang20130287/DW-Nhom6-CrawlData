@@ -22,14 +22,18 @@ public class ConfigurationDAO {
     EmailSenderDAO emailSenderDAO = new EmailSenderDAO();
 
     // PROPERTIES
+
+    // 1. Lấy ra dữ liệu trong file propertires
     PropertiesReader pr = new PropertiesReader();
     String USERNAME = pr.getProperty("database.username");
     String PASSWORD = pr.getProperty("database.password");
     String DATABASE_NAME = pr.getProperty("database.name.control");
 
+    // 3. Lấy ra tất cả các dòng có flag = 1 trong control.data_file_configs
     public List<DataFileConfigs> getDataConfigWithFlag() {
         List<DataFileConfigs> list = new ArrayList<>();
         try {
+            // 2. Kết nối database control
             connection = db.getConnection(DATABASE_NAME, USERNAME, PASSWORD);
             String query = "SELECT * FROM `data_file_configs` where flag = 1 ";
             ps = connection.prepareStatement(query);
@@ -107,6 +111,7 @@ public class ConfigurationDAO {
         return df;
     }
 
+    // 5. Kiểm tra status dòng có file_timestamp mới nhất
     public DataFiles getDataFilesWithFileTimeStampNewestNoErr(int configId) {
         DataFiles df = new DataFiles();
         String query = "SELECT df.df_config_id, df.file_timestamp, df.`status`, df.created_at, df.id\n" +

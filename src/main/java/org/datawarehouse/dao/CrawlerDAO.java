@@ -139,7 +139,7 @@ public class CrawlerDAO {
                     for (int j = 1; j < 10; j++) {
                         String province = els.get(i).text();
                         String awardNames = el.select("tr").get(j).select("td").get(0).attr("title");
-                        String numbers = el.select("tr").get(j).select("td").get(1).text();
+                        String numbers = el.select("tr").get(j).select("td").get(i).text();
                         String[] extractNumbers = extractNumbers(numbers);
                         for (String number : extractNumbers) {
                             result.add(new KQXS(getNameRegion(region), province, awardNames, number, dateInput));
@@ -160,7 +160,7 @@ public class CrawlerDAO {
                         String date = extractDate(dateHtml);
                         String province = els.get(i).text();
                         String awardNames = el.select("tr").get(j).select("td").get(0).attr("title");
-                        String numbers = el.select("tr").get(j).select("td").get(1).text();
+                        String numbers = el.select("tr").get(j).select("td").get(i).text();
                         String[] extractNumbers = extractNumbers(numbers);
                         for (String number : extractNumbers) {
                             result.add(new KQXS(getNameRegion(region), province, awardNames, number, date));
@@ -175,31 +175,48 @@ public class CrawlerDAO {
 
     public List<KQXS> getData(String sourcePath, String date) throws Exception {
         List<KQXS> result = new ArrayList<>();
-        String[] regions = {"xsmb", "xsmt", "xsmn"};
 
-        for (String region : regions) {
-            if (region.equals("xsmb")) {
-                List<KQXS> mb = resultMB(sourcePath + region, date);
-                for (KQXS k : mb) {
-                    result.add(k);
-                }
-            } else {
-                List<KQXS> mtmn = resultMTMN(sourcePath, date);
-                for (KQXS k : mtmn) {
-                    result.add(k);
-                }
-            }
+        List<KQXS> mb = resultMB(sourcePath + "xsmb", date);
+        for (KQXS k : mb) {
+            result.add(k);
         }
+
+        List<KQXS> mtmn = resultMTMN(sourcePath, date);
+        for (KQXS k : mtmn) {
+            result.add(k);
+        }
+
+
+//        String[] regions = {"xsmb", "xsmt", "xsmn"};
+//
+//        for (String region : regions) {
+//            if (region.equals("xsmb")) {
+//                List<KQXS> mb = resultMB(sourcePath + region, date);
+//                for (KQXS k : mb) {
+//                    result.add(k);
+//                }
+//            } else {
+//                List<KQXS> mtmn = resultMTMN(sourcePath, date);
+//                for (KQXS k : mtmn) {
+//                    result.add(k);
+//                }
+//            }
+//        }
         return result;
     }
 
+    // 9. Crawler data
     public void exportFileExcel(int configId, String location, String sourcePath, String fileName, String date) {
 
         try {
+            // 9. Crawler data
             List<KQXS> kqxs = getData(sourcePath, date);
             String[] columnsTitle = {"Region", "Province", "Award", "Number", "Date"};
+            // 10.2 Tìm kiếm file
             File file = new File(location + fileName);
+            // 10.2 Tồn tại ?
             if (!file.exists()) {
+                // 10.4 Insert thêm dòng mới có status = EXTRACTING trong control.data_files
                 new ConfigurationDAO().insertStatusConfig(configId, "CRAWLING");
                 Workbook workbook = new XSSFWorkbook();
                 FileOutputStream fos = new FileOutputStream(location + fileName);
@@ -260,7 +277,9 @@ public class CrawlerDAO {
                 new ConfigurationDAO().insertStatusConfig(configId, "CRAWLED");
             }
         } catch (Exception e) {
+            // 10.8 Insert thêm dòng mới có status = ERROR trong control.data_files
             new ConfigurationDAO().insertStatusConfig(configId, "ERROR");
+            // 25. Gửi email báo cáo lỗi
             new EmailSenderDAO().sendEmail("ERROR IN CRAWLING STEP: " + e.getMessage());
             throw new RuntimeException(e);
         }
