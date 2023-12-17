@@ -13,11 +13,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kqxs.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/kqxs.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/CrawlerData_jar/CrawlerData.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/CrawlerData_jar/CrawlerData.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/ConfigurationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/ConfigurationDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/CrawlerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/CrawlerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/InsertDataDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/InsertDataDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/RunProcedureDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/RunProcedureDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +131,11 @@
       <workItem from="1702538458968" duration="7085000" />
       <workItem from="1702560830009" duration="467000" />
       <workItem from="1702563560403" duration="2930000" />
-      <workItem from="1702643789447" duration="5029000" />
+      <workItem from="1702643789447" duration="5205000" />
+      <workItem from="1702650424860" duration="1276000" />
+      <workItem from="1702709005347" duration="72000" />
+      <workItem from="1702734412394" duration="98000" />
+      <workItem from="1702795055460" duration="20000" />
     </task>
     <servers />
   </component>
