@@ -12,8 +12,12 @@ public class DataFileConfigs {
     private String created_at;
     private String updated_at;
     private String file_name;
+    private String format;
 
-    public DataFileConfigs(int id, String name, String username, String password, String description, String source_path, String location, String flag, String created_at, String updated_at, String file_name) {
+    public DataFileConfigs() {
+    }
+
+    public DataFileConfigs(int id, String name, String username, String password, String description, String source_path, String location, String flag, String created_at, String updated_at, String file_name, String format) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -25,6 +29,15 @@ public class DataFileConfigs {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.file_name = file_name;
+        this.format = format;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
     }
 
     public String getFile_name() {
@@ -129,6 +142,7 @@ public class DataFileConfigs {
                 ", created_at='" + created_at + '\'' +
                 ", updated_at='" + updated_at + '\'' +
                 ", file_name='" + file_name + '\'' +
+                ", format='" + format + '\'' +
                 '}';
     }
 }

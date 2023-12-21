@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: org.datawarehouse.Main
+Main-Class: org.datawarehouse.module.InsertDataToMart
 

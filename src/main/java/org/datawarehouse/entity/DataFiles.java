@@ -5,8 +5,7 @@ public class DataFiles {
     private String file_timeStamp;
     private String status;
     private String create_at;
-
-    private int id;
+    private String name;
 
     public DataFiles(int configId, String file_timeStamp, String status, String create_at) {
         this.configId = configId;
@@ -16,6 +15,14 @@ public class DataFiles {
     }
 
     public DataFiles() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getConfigId() {

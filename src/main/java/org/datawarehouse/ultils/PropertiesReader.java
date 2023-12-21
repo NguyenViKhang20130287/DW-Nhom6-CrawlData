@@ -30,6 +30,4 @@ public class PropertiesReader {
     public String getProperty(String propertyName) {
         return properties.getProperty(propertyName);
     }
-
-
 }

@@ -1,11 +1,8 @@
 package org.datawarehouse.connection;
 
-import org.datawarehouse.dao.EmailSenderDAO;
 import org.datawarehouse.ultils.PropertiesReader;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DBConnection {
 
@@ -15,7 +12,7 @@ public class DBConnection {
         String dbURL = pr.getProperty("database.url") + dbName + "?useUnicode=yes&characterEncoding=UTF-8";
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(dbURL, username, password);
-        System.out.println("connect " + dbName + " successfully!");
+        System.out.println(">>>>>>> " + "connect " + dbName.toUpperCase() + " successfully!");
         return conn;
     }
 
@@ -23,12 +20,17 @@ public class DBConnection {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("Status isClosed: " + connection.isClosed());
-                System.out.println("Connection closed successfully!");
-                System.out.println("------------------------------");
+                System.out.println(">>>>>>> " + "Connection closed successfully!");
+                System.out.println();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+//        Connection connection = new DBConnection().getConnection("control", "root", "");
+//        System.out.println(new DBConnection().getDataConfigWithFlag(connection));
+//        new DBConnection().closeConnection(connection);
     }
 }

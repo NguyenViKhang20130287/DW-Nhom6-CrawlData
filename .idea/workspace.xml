@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="CrawlerData:jar" />
+      <artifact name="InsertDataToMart:jar" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -10,9 +10,69 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a56fb26f-0e43-498b-bd71-4ea6ab586327" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_1-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_10-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_11-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_12-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_12-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_13-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_13-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_14-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_14-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_15-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_15-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_16-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_16-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_17-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_17-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_18-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_18-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_19-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_19-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_2-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_20-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_20-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_21-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_22-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_23-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_24-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_25-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_26-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_27-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_28-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_29-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_3-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_30-11-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_4-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_5-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_6-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_7-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_8-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CrawlResult/KQXS_9-12-2023.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/module/AggregateData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/module/InsertDataToFact.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/module/InsertDataToMart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/module/TransformData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/CrawlerData_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kqxs.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/kqxs.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/CrawlerData_jar/CrawlerData.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/CrawlerData_jar/CrawlerData.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control.properties" beforeDir="false" afterPath="$PROJECT_DIR$/control.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kqxs.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/CrawlerData_jar/CrawlerData.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/CrawlerData_jar/control.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/connection/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/connection/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/ConfigurationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/Configuration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/CrawlerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/module/CrawlData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/EmailSenderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/EmailSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/InsertDataDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/module/ExtractData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/dao/RunProcedureDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/DataFileConfigs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/DataFileConfigs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/DataFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/entity/DataFiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/EmailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/EmailConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/PropertiesReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/PropertiesReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,48 +93,139 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2XOVcyrmtkzCjuW9XbQsI3sPifH" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Warehouse/CrawlerData&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "20",
+    "last_opened_file_path": "E:/Warehouse/CrawlerData/out/artifacts/CrawlDataAndETL",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Warehouse\CrawlerData\out\artifacts\CrawlDataAndETL" />
+      <recent name="E:\Warehouse\CrawlerData\out\artifacts\CrawlData_jar" />
+      <recent name="E:\Warehouse\CrawlerData\out\artifacts\Main_jar" />
+      <recent name="E:\Warehouse\CrawlerData\out\artifacts\CrawlerData_jar2" />
       <recent name="E:\Warehouse\CrawlerData\out\artifacts\CrawlerData_jar" />
-      <recent name="E:\Warehouse\CrawlerData\SqlQuery" />
-      <recent name="E:\Warehouse\CrawlerData\src\main\procedureCode" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Warehouse\CrawlerData\out\artifacts\CrawlDataAndETL" />
+      <recent name="E:\Warehouse\CrawlerData\out\artifacts\CrawlerData_jar" />
       <recent name="E:\Warehouse\CrawlerData" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.datawarehouse.Main" />
+  <component name="RunManager" selected="Application.InsertDataToMart">
+    <configuration name="AggregateData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.datawarehouse.module.AggregateData" />
+      <module name="CrawlerData" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.datawarehouse.ultils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CrawlData" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.datawarehouse.module.CrawlData" />
       <module name="CrawlerData" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ExtractData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.datawarehouse.module.ExtractData" />
+      <module name="CrawlerData" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.datawarehouse.ultils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InsertDataToFact" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.datawarehouse.module.InsertDataToFact" />
+      <module name="CrawlerData" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.datawarehouse.module.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InsertDataToMart" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.datawarehouse.module.InsertDataToMart" />
+      <module name="CrawlerData" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.datawarehouse.ultils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransformData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.datawarehouse.module.TransformData" />
+      <module name="CrawlerData" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.datawarehouse.module.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.CrawlData" />
+      <item itemvalue="Application.AggregateData" />
+      <item itemvalue="Application.ExtractData" />
+      <item itemvalue="Application.InsertDataToFact" />
+      <item itemvalue="Application.InsertDataToMart" />
+      <item itemvalue="Application.TransformData" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.InsertDataToMart" />
+        <item itemvalue="Application.AggregateData" />
+        <item itemvalue="Application.InsertDataToFact" />
+        <item itemvalue="Application.TransformData" />
+        <item itemvalue="Application.ExtractData" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -136,10 +287,42 @@
       <workItem from="1702709005347" duration="72000" />
       <workItem from="1702734412394" duration="98000" />
       <workItem from="1702795055460" duration="20000" />
+      <workItem from="1702796737912" duration="272000" />
+      <workItem from="1702815817972" duration="978000" />
+      <workItem from="1702886680784" duration="20033000" />
+      <workItem from="1702948929128" duration="19763000" />
+      <workItem from="1702996314689" duration="2945000" />
+      <workItem from="1703044022074" duration="2819000" />
+      <workItem from="1703129677996" duration="16008000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/datawarehouse/ultils/Configuration.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
